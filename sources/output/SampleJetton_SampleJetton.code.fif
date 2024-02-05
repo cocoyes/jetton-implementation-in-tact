@@ -1,3 +1,5 @@
+ode_modules\\@tact-lang\\compiler\\stdlib\\stdlib.fc` `D:\\fansland\\jetton-implementation-in-tact\
+ode_modules\\@tact-lang\\compiler\\stdlib\\stdlib_ex.fc` `D:/fansland/jetton-implementation-in-tact/sources/output/SampleJetton_SampleJetton.code.fc` incl:`D:/fansland/jetton-implementation-in-tact/sources/output/SampleJetton_SampleJetton.headers.fc` incl:`D:/fansland/jetton-implementation-in-tact/sources/output/SampleJetton_SampleJetton.stdlib.fc` incl:`D:/fansland/jetton-implementation-in-tact/sources/output/SampleJetton_SampleJetton.storage.fc` 
 PROGRAM{
   DECLPROC __tact_verify_address
   DECLPROC __tact_load_address
