@@ -8,6 +8,7 @@ This project is targeting to provide a template for the Jetton Implementation. I
 yarn build # To build & compile the contract
 yarn test # To run test cases for the contract
 yarn deploy # To deploy contract
+yarn deploy_fans # To deploy fansland contract
 ---
 yarn read # To read contract data from the blockchain
 yarn d1 # (Optional) To Transfer the Jetton Token to the new account
