@@ -49,8 +49,10 @@ dotenv.config();
 
     console.log("====== Deployment message sent to =======\n", jettonMaster);
     let deployAmount = toNano("0.15");
+    
     let packed_msg = beginCell()
     .endCell();
+
     await deployer_wallet_contract.sendTransfer({
         seqno,
         secretKey,

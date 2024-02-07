@@ -48,31 +48,36 @@ let NewOnwer_Address = Address.parse(""); // 🔴 Owner should usually be the de
     let jetton_wallet = await contract.getGetWalletAddress(wallet_contract.address);
     console.log("✨ " + wallet_contract.address + "'s JettonWallet ==> ");
 
-    // ✨Pack the forward message into a cell
-    const test_message_left = beginCell()
-        .storeBit(0) // 🔴  whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
-        .storeUint(0, 32)
-        .storeBuffer(Buffer.from("Hello, GM -- Left.", "utf-8"))
-        .endCell();
+    // // ✨Pack the forward message into a cell
+    // const test_message_left = beginCell()
+    //     .storeBit(0) // 🔴  whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
+    //     .storeUint(0, 32)
+    //     .storeBuffer(Buffer.from("Hello, GM -- Left.", "utf-8"))
+    //     .endCell();
 
     // const test_message_right = beginCell()
     //     .storeBit(1) // 🔴 whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
     //     .storeRef(beginCell().storeUint(0, 32).storeBuffer(Buffer.from("Hello, GM. -- Right", "utf-8")).endCell())
     //     .endCell();
 
+    let parent_addr = Address.parse("Addr1");
+    let ticket_addr = Address.parse("Addr2");
+    let buy_count = 123456n;
+    const messageBody = beginCell().storeAddress(parent_addr).storeAddress(ticket_addr).storeUint(buy_count, 16).endCell();
+
     // ========================================
-    let forward_string_test = beginCell().storeBit(1).storeUint(0, 32).storeStringTail("EEEEEE").endCell();
+    // let forward_string_test = beginCell().storeBit(1).storeUint(0, 32).storeStringTail("EEEEEE").endCell();
     let packed = beginCell()
         .store(
             storeTokenTransfer({
                 $$type: "TokenTransfer",
                 query_id: 0n,
                 amount: toNano(20000),
-                destination: NewOnwer_Address,
+                sender: NewOnwer_Address,
                 response_destination: wallet_contract.address, // Original Owner, aka. First Minter's Jetton Wallet
-                custom_payload: forward_string_test,
-                forward_ton_amount: toNano("0.000000001"),
-                forward_payload: test_message_left,
+                custom_payload: null,
+                forward_ton_amount: toNano("0.1"), // 🔴 這一行的數值關係到會附贈多少 tonCoin 轉發給接收者。太少會導致訊息運算失敗。
+                forward_payload: messageBody,
             })
         )
         .endCell();

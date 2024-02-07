@@ -3,7 +3,7 @@ import "@stdlib/deploy";
 
 const ERROR_COIN_NOT_SUPPORT: Int = 1;  //The pay coin does not match
 
-contract FanslandContract with Deployable,Ownable{
+contract FanslandContract with Deployable, Ownable{
     
     event_flag: Bool = true;
     pay_coin_map: map<Address,Int>;
@@ -86,8 +86,8 @@ contract FanslandContract with Deployable,Ownable{
     receive(msg: TokenNotification) {
      
         let payload: Slice = msg.forward_payload;
-        let parent_addr: Int = payload.loadUint(32);
-        let ticket_addr: Int = payload.loadUint(32);
+        let parent_addr: Int = payload.loadAddress();
+        let ticket_addr: Int = payload.loadAddress();
         let buy_count: Int = payload.loadUint(16);
        /**
        message FanslandMsg {
